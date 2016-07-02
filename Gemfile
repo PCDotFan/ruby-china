@@ -13,7 +13,7 @@ gem 'jquery-rails'
 gem 'jbuilder'
 gem 'turbolinks', '~> 5.0.0'
 gem 'dropzonejs-rails'
-gem 'twemoji'
+
 gem 'pg'
 
 gem 'rack-attack'
@@ -21,8 +21,9 @@ gem 'rack-attack'
 gem 'rails-i18n', '5.0.0.beta4'
 gem 'http_accept_language'
 gem 'rails_autolink'
-gem 'md_emoji'
+gem 'twemoji'
 gem 'jquery-atwho-rails'
+gem 'font-awesome-rails'
 
 # OAuth Provider
 gem 'doorkeeper', '4.0.0.rc4'
@@ -125,22 +126,8 @@ end
 
 group :development, :test do
   gem 'rubocop', '~> 0.39.0', require: false
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  gem 'rspec-rails', '3.5.0.beta2'
-=======
-  gem 'rspec-rails', '3.5.0.beta1'
->>>>>>> parent of 49df976... 跟进官方更新
-  gem 'factory_girl_rails', '~> 4.5.0'
-=======
   gem 'rspec-rails', '3.5.0.beta4'
   gem 'factory_girl_rails'
->>>>>>> ruby-china/master
-=======
-  gem 'rspec-rails', '3.5.0.beta4'
-  gem 'factory_girl_rails'
->>>>>>> ruby-china/master
   gem 'database_cleaner'
   gem 'capybara'
   gem 'jasmine-rails', '~> 0.10.2'
@@ -150,4 +137,3 @@ group :development, :test do
   gem 'bundler-audit', require: false
   gem 'pry-byebug'
 end
-gem 'nokogiri', '>= 1.6.8'
