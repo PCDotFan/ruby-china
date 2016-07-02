@@ -379,12 +379,12 @@ describe 'markdown' do
 
           describe '[:src]' do
             subject { super()[:src] }
-            it { is_expected.to eq("https://twemoji.b0.upaiyun.com/2/svg/1f34e.svg") }
+            it { is_expected.to eq("#{upload_url}/assets/emojis/apple.png") }
           end
 
           describe '[:class]' do
             subject { super()[:class] }
-            it { is_expected.to eq('twemoji') }
+            it { is_expected.to eq('emoji') }
           end
 
           describe '[:title]' do

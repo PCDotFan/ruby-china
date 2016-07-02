@@ -159,16 +159,25 @@
 
 #topic-sidebar {
   position: fixed;
+<<<<<<< HEAD
   display: none;
   width: 260px;
 
   @media (min-width: 960px) {
     display: block;
+=======
+  width: 260px;
+
+  @media (min-width: 992px) {
+>>>>>>> parent of 49df976... 跟进官方更新
     width: 242px;
   }
 
   @media (min-width: 1200px) {
+<<<<<<< HEAD
     display: block;
+=======
+>>>>>>> parent of 49df976... 跟进官方更新
    width: 292px;
   }
 
@@ -184,7 +193,7 @@
       a:hover { background: rgba(0, 0, 0, 0.03); }
       i.fa { display: block; font-size: 40px;  margin-bottom: 10px; color: #666; }
       a.active {
-        i.fa { color: #e76f3c; }
+        i.fa { color: #DC3030; }
       }
     }
   }
@@ -256,6 +265,7 @@
       font-size: 12px;
       .reply-floor { color: #7AA87A; }
     }
+<<<<<<< HEAD
 
     .opts {
       a {
@@ -275,6 +285,8 @@
     &:hover {
       .hideable { display: inline-block; }
     }
+=======
+>>>>>>> parent of 49df976... 跟进官方更新
   }
 
   @media (max-width: 480px) {

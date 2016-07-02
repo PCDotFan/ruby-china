@@ -3,6 +3,7 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require File.expand_path('../config/application', __FILE__)
+<<<<<<< HEAD
 require 'elasticsearch/rails/tasks/import'
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -11,6 +12,9 @@ require 'elasticsearch/rails/tasks/import'
 >>>>>>> ruby-china/master
 
 >>>>>>> ruby-china/master
+=======
+
+>>>>>>> parent of 49df976... 跟进官方更新
 Rails.application.load_tasks
 
 task default: 'bundle:audit'

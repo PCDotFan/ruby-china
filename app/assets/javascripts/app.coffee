@@ -13,8 +13,7 @@
 #= require jquery.fluidbox.min
 #= require social-share-button
 #= require jquery.atwho
-#= require emoji-data
-#= require emoji-modal
+#= require emoji_list
 #= require notifier
 #= require action_cable
 #= require form_storage
@@ -101,7 +100,6 @@ AppView = Backbone.View.extend
       likes_count += 1
       $el.data('count', likes_count)
       @likeableAsLiked($el)
-      $("i.fa", $el).attr("class","fa fa-heart")
     else
       $.ajax
         url : "/likes/#{likeable_id}"
@@ -112,17 +110,17 @@ AppView = Backbone.View.extend
         likes_count -= 1
       $el.data("state","").data('count', likes_count).attr("title", "").removeClass("active")
       if likes_count == 0
-        $('span', $el).text("")
+        $('span',$el).text("")
       else
-        $('span', $el).text("#{likes_count} 个赞")
-      $("i.fa", $el).attr("class","fa fa-heart-o")
+        $('span',$el).text("#{likes_count} 个赞")
+      $("i.fa",$el).attr("class","fa fa-thumbs-up")
     false
 
   likeableAsLiked : (el) ->
     likes_count = el.data("count")
     el.data("state","active").attr("title", "取消赞").addClass("active")
     $('span',el).text("#{likes_count} 个赞")
-    $("i.fa",el).attr("class","fa fa-heart")
+    $("i.fa",el).attr("class","fa fa-thumbs-up")
 
   initCable: () ->
     if !window.notificationChannel && App.isLogined()
@@ -248,7 +246,6 @@ window.App =
   current_user_id: null
   access_token : ''
   asset_url : ''
-  twemoji_url: 'https://twemoji.maxcdn.com/'
   root_url : ''
   cable: ActionCable.createConsumer()
 
@@ -303,10 +300,9 @@ window.App =
       insertTpl : "@${login}"
     .atwho
       at : ":"
-      searchKey: 'code'
       data : window.EMOJI_LIST
-      displayTpl : "<li data-value='${code}'><img src='#{App.twemoji_url}/svg/${url}.svg' class='twemoji' /> ${code} </li>"
-      insertTpl: "${code}"
+      displayTpl : "<li data-value='${name}:'><img src='#{App.asset_url}/assets/emojis/${name}.png' height='20' width='20'/> ${name} </li>"
+      insertTpl: ":${name}:"
     true
 
 document.addEventListener 'turbolinks:load',  ->
