@@ -50,10 +50,15 @@ module ApplicationHelper
   end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   def render_page_title
     site_name = Setting.app_name
     title = @page_title ? "#{@page_title} &raquo; #{site_name}" : site_name
     content_tag('title', title, nil, false)
+=======
+  def title_tag(str)
+    content_for :title, raw("#{str} · #{Setting.app_name}")
+>>>>>>> ruby-china/master
 =======
   def title_tag(str)
     content_for :title, raw("#{str} · #{Setting.app_name}")

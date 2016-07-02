@@ -127,8 +127,13 @@ end
 group :development, :test do
   gem 'rubocop', '~> 0.39.0', require: false
 <<<<<<< HEAD
+<<<<<<< HEAD
   gem 'rspec-rails', '3.5.0.beta2'
   gem 'factory_girl_rails', '~> 4.5.0'
+=======
+  gem 'rspec-rails', '3.5.0.beta4'
+  gem 'factory_girl_rails'
+>>>>>>> ruby-china/master
 =======
   gem 'rspec-rails', '3.5.0.beta4'
   gem 'factory_girl_rails'
