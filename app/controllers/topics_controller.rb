@@ -18,12 +18,17 @@ class TopicsController < ApplicationController
       end
     @topics = @topics.fields_for_list
     @topics = @topics.paginate(page: params[:page], per_page: 22, total_entries: 1500).to_a
+<<<<<<< HEAD
     set_seo_meta t('menu.topics'), "#{Setting.app_name}#{t('menu.topics')}"
+=======
+    @page_title = t('menu.topics')
+    fresh_when([@suggest_topics, @topics])
+>>>>>>> ruby-china/master
   end
 
   def feed
     @topics = Topic.without_hide_nodes.recent.without_body.limit(20).includes(:node, :user, :last_reply_user)
-    render layout: false
+    render layout: false if stale?(@topics)
   end
 
   def node
@@ -31,14 +36,16 @@ class TopicsController < ApplicationController
     @topics = @node.topics.last_actived.fields_for_list
     @topics = @topics.includes(:user).paginate(page: params[:page], per_page: 25)
     title = @node.jobs? ? @node.name : "#{@node.name} &raquo; #{t('menu.topics')}"
-    set_seo_meta title, "#{Setting.app_name}#{t('menu.topics')}#{@node.name}", @node.summary
-    render action: 'index'
+    @page_title = [@node.name, t('menu.topics')].join(' · ')
+    if stale?(etag: [@node, @topics], template: 'topics/index')
+      render action: 'index'
+    end
   end
 
   def node_feed
     @node = Node.find(params[:id])
     @topics = @node.topics.recent.without_body.limit(20)
-    render layout: false
+    render layout: false if stale?([@node, @topics])
   end
 
   %w(no_reply popular).each do |name|
@@ -46,24 +53,24 @@ class TopicsController < ApplicationController
       @topics = Topic.without_hide_nodes.send(name.to_sym).last_actived.fields_for_list.includes(:user)
       @topics = @topics.paginate(page: params[:page], per_page: 25, total_entries: 1500)
 
-      set_seo_meta [t("topics.topic_list.#{name}"), t('menu.topics')].join(' &raquo; ')
-      render action: 'index'
+      @page_title = [t("topics.topic_list.#{name}"), t('menu.topics')].join(' · ')
+      render action: 'index' if stale?(etag: @topics, template: 'topics/index')
     end
   end
 
   def recent
     @topics = Topic.without_hide_nodes.recent.fields_for_list.includes(:user)
     @topics = @topics.paginate(page: params[:page], per_page: 25, total_entries: 1500)
-    set_seo_meta [t('topics.topic_list.recent'), t('menu.topics')].join(' &raquo; ')
-    render action: 'index'
+    @page_title = [t('topics.topic_list.recent'), t('menu.topics')].join(' · ')
+    render action: 'index' if stale?(etag: @topics, template: 'topics/index')
   end
 
   def excellent
     @topics = Topic.excellent.recent.fields_for_list.includes(:user)
     @topics = @topics.paginate(page: params[:page], per_page: 25, total_entries: 1500)
 
-    set_seo_meta [t('topics.topic_list.excellent'), t('menu.topics')].join(' &raquo; ')
-    render action: 'index'
+    @page_title = [t('topics.topic_list.excellent'), t('menu.topics')].join(' · ')
+    render action: 'index' if stale?(etag: @topics, template: 'topics/index')
   end
 
   def show
@@ -72,7 +79,6 @@ class TopicsController < ApplicationController
 
     @topic.hits.incr(1)
     @node = @topic.node
-
     @show_raw = params[:raw] == '1'
 
     @replies = Reply.unscoped.where(topic_id: @topic.id).without_body.order(:id).all
@@ -80,37 +86,7 @@ class TopicsController < ApplicationController
     check_current_user_liked_replies
     check_current_user_status_for_topic
     set_special_node_active_menu
-
-    set_seo_meta "#{@topic.title} &raquo; #{t('menu.topics')}"
-  end
-
-  def check_current_user_liked_replies
-    return false unless current_user
-
-    # 找出用户 like 过的 Reply，给 JS 处理 like 功能的状态
-    @user_liked_reply_ids = []
-    @replies.each do |r|
-      unless r.liked_user_ids.index(current_user.id).nil?
-        @user_liked_reply_ids << r.id
-      end
-    end
-  end
-
-  def check_current_user_status_for_topic
-    return false unless current_user
-    # 通知处理
-    current_user.read_topic(@topic, replies_ids: @replies.collect(&:id))
-    # 是否关注过
-    @has_followed = @topic.followed?(current_user.id)
-    # 是否收藏
-    @has_favorited = current_user.favorited_topic?(@topic.id)
-  end
-
-  def set_special_node_active_menu
-    case @node.try(:id)
-    when Node.jobs_id
-      @current = ['/jobs']
-    end
+    fresh_when([@topic, @node, @show_raw, @replies, @has_followed, @has_favorited])
   end
 
   def new
@@ -120,14 +96,10 @@ class TopicsController < ApplicationController
       @node = Node.find_by_id(params[:node])
       render_404 if @node.blank?
     end
-
-    set_seo_meta "#{t('topics.post_topic')} &raquo; #{t('menu.topics')}"
   end
 
   def edit
     @node = @topic.node
-
-    set_seo_meta "#{t('topics.edit_topic')} &raquo; #{t('menu.topics')}"
   end
 
   def create
@@ -225,5 +197,34 @@ class TopicsController < ApplicationController
 
   def topic_params
     params.require(:topic).permit(:title, :body, :node_id)
+  end
+
+  def check_current_user_liked_replies
+    return false unless current_user
+
+    # 找出用户 like 过的 Reply，给 JS 处理 like 功能的状态
+    @user_liked_reply_ids = []
+    @replies.each do |r|
+      unless r.liked_user_ids.index(current_user.id).nil?
+        @user_liked_reply_ids << r.id
+      end
+    end
+  end
+
+  def check_current_user_status_for_topic
+    return false unless current_user
+    # 通知处理
+    current_user.read_topic(@topic, replies_ids: @replies.collect(&:id))
+    # 是否关注过
+    @has_followed = @topic.followed?(current_user.id)
+    # 是否收藏
+    @has_favorited = current_user.favorited_topic?(@topic.id)
+  end
+
+  def set_special_node_active_menu
+    case @node.try(:id)
+    when Node.jobs_id
+      @current = ['/jobs']
+    end
   end
 end

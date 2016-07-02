@@ -4,6 +4,10 @@
 
 require File.expand_path('../config/application', __FILE__)
 require 'elasticsearch/rails/tasks/import'
+<<<<<<< HEAD
+=======
+
+>>>>>>> ruby-china/master
 Rails.application.load_tasks
 
 task default: 'bundle:audit'

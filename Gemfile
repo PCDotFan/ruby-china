@@ -4,22 +4,21 @@ else
   source 'https://gems.ruby-china.org'
 end
 
-gem 'rails', '5.0.0.rc1'
+gem 'rails', '5.0.0'
 gem 'sprockets'
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
 gem 'jquery-rails'
 gem 'jbuilder'
-gem 'turbolinks', '~> 2.5.3'
-gem 'jquery-turbolinks'
+gem 'turbolinks', '~> 5.0.0'
 gem 'dropzonejs-rails'
 
 gem 'pg'
 
 gem 'rack-attack'
 
-gem 'rails-i18n', '5.0.0.beta3'
+gem 'rails-i18n', '5.0.0.beta4'
 gem 'http_accept_language'
 gem 'rails_autolink'
 gem 'twemoji'
@@ -55,7 +54,7 @@ gem 'will_paginate'
 # 搜索
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
-gem 'redis-search', '1.0.0.beta2'
+gem 'redis-search'
 
 # 三方平台 OAuth 验证登陆
 gem 'omniauth'
@@ -71,14 +70,14 @@ gem 'redis-namespace'
 gem 'redis-objects'
 
 # Cache
-gem 'second_level_cache', '2.2.2'
+gem 'second_level_cache'
 
 # Setting
 gem 'rails-settings-cached'
 
 # Markdown
 gem 'redcarpet', '~> 3.3.4'
-gem 'rouge', '~> 1.8.0'
+gem 'rouge'
 gem 'auto-space'
 
 # 队列
@@ -109,9 +108,6 @@ gem 'puma'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-utf8_sanitizer'
 
-# Mini profiler
-gem 'rack-mini-profiler', require: false
-
 gem 'oneapm_rpm'
 gem 'exception_notification'
 gem 'status-page'
@@ -130,8 +126,13 @@ end
 
 group :development, :test do
   gem 'rubocop', '~> 0.39.0', require: false
+<<<<<<< HEAD
   gem 'rspec-rails', '3.5.0.beta2'
   gem 'factory_girl_rails', '~> 4.5.0'
+=======
+  gem 'rspec-rails', '3.5.0.beta4'
+  gem 'factory_girl_rails'
+>>>>>>> ruby-china/master
   gem 'database_cleaner'
   gem 'capybara'
   gem 'jasmine-rails', '~> 0.10.2'
