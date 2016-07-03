@@ -135,6 +135,7 @@ class User < ApplicationRecord
   end
 
   # 是否能发帖
+  # 新手允许发帖
   def newbie?
     #return false if verified? || hr?
     #created_at > 1.week.ago
@@ -372,7 +373,7 @@ class User < ApplicationRecord
 
   def self.fetch_github_repositories(user_id)
     user = User.find_by_id(user_id)
-    return unless user
+    return false if user.blank?
 
     github_login = user.github || user.login
 
@@ -383,7 +384,8 @@ class User < ApplicationRecord
       end
     rescue => e
       Rails.logger.error("GitHub Repositiory fetch Error: #{e}")
-      $file_store.write(user.github_repositories_cache_key, [], expires_in: 1.minutes)
+      items = []
+      $file_store.write(user.github_repositories_cache_key, items, expires_in: 1.minutes)
       return false
     end
 

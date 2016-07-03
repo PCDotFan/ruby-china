@@ -1,14 +1,12 @@
 /*
  *= require bootstrap-select.min
- *= require font-awesome
+ *= require font-awesome.min
  *= require highlight
  *= require social-share-button
  *= require jquery.atwho
  *= require jquery.fluidbox
  *= require_self
  */
-
-@font-face{font-family:'Open Sans';font-style:normal;font-weight:300;src:local('Open Sans Light'),local('OpenSans-Light'),url(//www.mywpku.com/wp-content/themes/pckr-1.3.0[Beta]/assets/fonts/opensanslight.woff) format('woff')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(//www.mywpku.com/wp-content/themes/pckr-1.3.0[Beta]/assets/fonts/opensans.woff) format('woff')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;src:local('Open Sans Semibold'),local('OpenSans-Semibold'),url(//www.mywpku.com/wp-content/themes/pckr-1.3.0[Beta]/assets/fonts/opensansbold.woff) format('woff')}
 
 @import "bootstrap.min";
 @import "vars";
@@ -27,21 +25,6 @@
   }
 }
 
-textarea,
-#preview {
-  &::-webkit-scrollbar {
-    width: 12px;
-  }
-
-  &::-webkit-scrollbar-track {
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #f0f0f0;
-    border: 3px solid #fff;
-    border-radius: 9px;
-  }
-}
 
 /* Bootstrap Theme */
 body {
@@ -264,13 +247,8 @@ a:hover { color: #303030; }
   }
 }
 textarea.form-control,
-<<<<<<< HEAD
 #preview.form-control { border: 1px solid $blueLight; }
 #preview.form-control { border-radius: 0px 2px 2px 2px; }
-=======
-#preview.form-control { }
-#preview.form-control { border-radius: 0px 3px 3px 3px; }
->>>>>>> ruby-china/master
 textarea.form-control,
 #preview.form-control,
 textarea.form-control:focus { padding: 6px; border-bottom-width: 1px; }
@@ -286,18 +264,11 @@ textarea.form-control:focus { padding: 6px; border-bottom-width: 1px; }
   }
   .nav-pills>li.active>a:link,
   .nav-pills>li.active>a:visited,
-  .nav-pills>li.active>a:hover { background-color: #d0d0d0; color: #666; }
+  .nav-pills>li.active>a:hover { background-color: $blueLight; color: #FFF; }
 }
 textarea.topic-editor {
-<<<<<<< HEAD
   border-radius: 0px 2px 2px 2px;
   border-color: $blueLight;
-=======
-  border-radius: 0px 3px 3px 3px;
-  &:focus {
-    border-color: #ddd;
-  }
->>>>>>> ruby-china/master
 }
 form {
   #preview { min-height: 500px; overflow-y: scroll; }
@@ -467,33 +438,6 @@ kbd {
   border-color: $redLight;
 }
 
-/* Modal */
-.modal {
-  .modal-content {
-    h4.title { margin-bottom: 20px; font-size: 15px; }
-    border: 0px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15), 0px 0px 1px 1px rgba(0, 0, 0, 0.05);
-
-    p { margin-bottom: 5px; }
-  }
-  .modal-header {
-    border: 0px;
-    padding-bottom: 0px;
-    .close { margin-top: -8px; font-weight: normal; outline: none !important; }
-    .modal-title {
-      font-size: 16px;
-    }
-  }
-  .modal-footer {
-    border-color: #e5e5e5;
-  }
-}
-
-.modal-backdrop.in {
-  opacity: 1;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
 .list-group {
   .list-group-item {
     border-color: #eee;
@@ -520,7 +464,8 @@ kbd {
   }
 }
 
-.turbolinks-progress-bar {
+html.turbolinks-progress-bar::before {
+  position: absolute !important;
   background-color: $red !important;
   height: 2px !important;
 }
@@ -563,7 +508,7 @@ img.emoji { width:20px; height:20px; }
   .fa {
     @extend .animated;
     @extend .bounceIn;
-    color: #e76f3c;
+    color: $red;
   }
 }
 
@@ -582,7 +527,4 @@ img.emoji { width:20px; height:20px; }
     li.next { float: right; }
   }
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> ruby-china/master

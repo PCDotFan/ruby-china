@@ -73,20 +73,10 @@ module ApplicationHelper
     content_tag(:abbr, EMPTY_STRING, class: options[:class], title: time.iso8601) if time
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   def render_page_title
     site_name = Setting.app_name
     title = @page_title ? "#{@page_title} &raquo; #{site_name}" : site_name
     content_tag('title', title, nil, false)
-=======
-  def title_tag(str)
-    content_for :title, raw("#{str} · #{Setting.app_name}")
->>>>>>> ruby-china/master
-=======
-  def title_tag(str)
-    content_for :title, raw("#{str} · #{Setting.app_name}")
->>>>>>> ruby-china/master
   end
 
   # 去除区域里面的内容的换行标记
@@ -161,13 +151,13 @@ module ApplicationHelper
 
   def stylesheet_link_tag_with_cached(name)
     memory_cache('stylesheets_link_tag', name) do
-      stylesheet_link_tag(name, 'data-turbolinks-track' => 'reload')
+      stylesheet_link_tag(name, 'data-turbolinks-track' => true)
     end
   end
 
   def javascript_include_tag_with_cached(name)
     memory_cache('javascript_include_tag', name) do
-      javascript_include_tag(name, 'data-turbolinks-track' => 'reload')
+      javascript_include_tag(name, 'data-turbolinks-track' => true)
     end
   end
 

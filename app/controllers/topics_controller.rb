@@ -18,17 +18,8 @@ class TopicsController < ApplicationController
       end
     @topics = @topics.fields_for_list
     @topics = @topics.paginate(page: params[:page], per_page: 22, total_entries: 1500).to_a
-<<<<<<< HEAD
-<<<<<<< HEAD
-    set_seo_meta t('menu.topics'), "#{Setting.app_name}#{t('menu.topics')}"
-=======
     @page_title = t('menu.topics')
     fresh_when([@suggest_topics, @topics])
->>>>>>> ruby-china/master
-=======
-    @page_title = t('menu.topics')
-    fresh_when([@suggest_topics, @topics])
->>>>>>> ruby-china/master
   end
 
   def feed
